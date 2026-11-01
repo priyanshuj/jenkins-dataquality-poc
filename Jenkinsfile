@@ -53,6 +53,16 @@ pipeline {
                 '''
             }
         }
+        
+        stage('Verify TEST Deployment') {
+            steps {
+                bat '''
+                    fc /b "output\\validated_assets.csv" "C:\\JenkinsTest\\ValidatedAssets\\validated_assets.csv"
+                    if errorlevel 1 exit /b 1
+                '''
+            }
+        }
+
        
     }
 
