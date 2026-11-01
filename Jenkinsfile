@@ -14,7 +14,12 @@ pipeline {
 
         stage('Unit Tests') {
             steps {
-                bat 'python -m unittest -v'
+                bat 'python run_tests.py'
+            }
+            post {
+                always {
+                    junit testResults: 'test-reports/junit.xml'
+                }
             }
         }
 
@@ -22,6 +27,13 @@ pipeline {
             steps {
                 bat 'python validate_assets.py'
             }
+        }
+    }
+
+    post {
+        always {
+            archiveArtifacts artifacts: 'test-reports/junit.xml',
+                             fingerprint: true
         }
     }
 }
