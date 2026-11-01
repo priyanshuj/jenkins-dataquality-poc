@@ -12,6 +12,12 @@ pipeline {
             }
         }
 
+        stage('Unit Tests') {
+            steps {
+                bat 'python -m unittest -v'
+            }
+        }
+
         stage('Data Quality Validation') {
             steps {
                 bat 'python validate_assets.py'
