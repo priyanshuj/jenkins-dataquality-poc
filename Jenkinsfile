@@ -28,6 +28,19 @@ pipeline {
                 bat 'python validate_assets.py'
             }
         }
+
+        stage('Package Validated Artifact') {
+            steps {
+                bat 'python package_artifact.py'
+            }
+        }
+
+        stage('Archive Validated Artifact') {
+            steps {
+                archiveArtifacts artifacts: 'output/validated_assets.csv',
+                                fingerprint: true
+            }
+        }
     }
 
     post {
