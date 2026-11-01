@@ -41,6 +41,19 @@ pipeline {
                                 fingerprint: true
             }
         }
+
+        stage('Deploy to TEST') {
+            steps {
+                bat '''
+                    if not exist "C:\\JenkinsTest\\ValidatedAssets" (
+                        mkdir "C:\\JenkinsTest\\ValidatedAssets"
+                    )
+                    copy /Y "output\\validated_assets.csv" "C:\\JenkinsTest\\ValidatedAssets\\validated_assets.csv"
+                    if errorlevel 1 exit /b 1
+                '''
+            }
+        }
+       
     }
 
     post {
