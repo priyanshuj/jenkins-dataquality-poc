@@ -1,4 +1,6 @@
-﻿import csv
+﻿# CI test: automatic build trigger
+
+import csv
 import sys
 from collections import Counter
 from pathlib import Path
