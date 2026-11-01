@@ -12,6 +12,16 @@ pipeline {
             }
         }
 
+
+        stage('SAST - Bandit') {
+            steps {
+                bat '''
+                    .venv\\Scripts\\bandit.exe run_tests.py validate_assets.py test_validate_assets.py package_artifact.py -f txt
+                '''
+            }
+        }
+
+
         stage('Unit Tests') {
             steps {
                 bat 'python run_tests.py'
@@ -53,7 +63,7 @@ pipeline {
                 '''
             }
         }
-        
+
         stage('Verify TEST Deployment') {
             steps {
                 bat '''
@@ -63,7 +73,7 @@ pipeline {
             }
         }
 
-       
+
     }
 
     post {
